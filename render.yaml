@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: vehicles-app
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "streamlit run app.py"
+    pythonVersion: 3.10.12
