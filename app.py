@@ -11,3 +11,9 @@ st.title('Análisis de Vehículos en EE.UU.')
 st.dataframe(vehicles_us)
 
 st.text('se supone que asi sirve no?')
+
+
+st.set_page_config(page_title="App Vehículos", layout="wide")
+
+st.title("Análisis de Vehículos")
+st.write("Bienvenido a la aplicación de Streamlit desplegada con Render.")
