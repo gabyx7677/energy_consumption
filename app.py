@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import plotly_express
+import plotly.express as px
 import numpy as np
 
 # Se carga el dataset
