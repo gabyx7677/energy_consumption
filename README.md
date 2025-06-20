@@ -1,33 +1,21 @@
-# Análisis de Vehículos con Streamlit 🚗📊
+# Energy Consumption Analysis
 
-Esta aplicación permite explorar un conjunto de datos de vehículos en venta en EE.UU.  
-Está desarrollada en Python con Streamlit, Plotly y Pandas.
+Este proyecto analiza el consumo eléctrico en función de distintas variables ambientales, como temperatura, humedad y condiciones climáticas. El objetivo es identificar patrones, correlaciones y factores que influyen en la demanda energética mediante visualizaciones interactivas y análisis exploratorios.
 
-## 🔍 ¿Qué hace?
+## Estructura
 
-- Visualiza la distribución de precios
-- Compara kilometraje y precios
-- Filtra por tipo de combustible, transmisión, etc.
+- `app.py`: aplicación principal en Streamlit.
+- `datasets/power_consumption.csv`: conjunto de datos usado para el análisis.
+- `notebooks/EDA.ipynb`: exploración y visualización inicial de los datos.
+- `requirements.txt`: lista de dependencias.
+- `render.yaml`: configuración de despliegue en Render.
 
-## 🧪 Análisis Exploratorio (EDA)
+## Cómo usar
 
-El análisis inicial fue realizado en un Jupyter Notebook, disponible en:
-[`notebooks/EDA.ipynb`](notebooks/EDA.ipynb)
-
-## 🚀 Deploy en la nube
-
-Podés ver la app funcionando en vivo aquí:  
-👉 [App en Render](https://vehicles-016w.onrender.com)
-
-## ⚙️ Tecnologías usadas
-
-- Python
-- Pandas
-- Plotly
-- Streamlit
-- Render.com
-
----
-
-👤 Desarrollado por Gabriel G. Montoya  
-🔗 [Tu LinkedIn o GitHub si querés ponerlo]
+```bash
+git clone https://github.com/gabyx7677/energy_consumption.git
+cd energy_consumption
+python -m venv energy_consumption_env
+source energy_consumption_env/Scripts/activate
+pip install -r requirements.txt
+streamlit run app.py
