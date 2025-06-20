@@ -6,8 +6,6 @@ matplotlib
 seaborn
 opencv-python
 Pillow
-tensorflow
-keras
 
 
 
