@@ -4,7 +4,7 @@ import plotly_express
 import numpy as np
 
 # Se carga el dataset
-vehicles_us = pd.read_csv('vehicles_us.csv')
+vehicles_us = pd.read_csv('datasets/power_consuption.csv')
 
 # Se muestra el título de la app
 st.title('Análisis de Vehículos en EE.UU.')
