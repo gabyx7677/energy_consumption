@@ -1,7 +1,9 @@
+# Esto le indica a render como ejecutar la app
+
 services:
-  - type: web
-    name: vehicles-app
-    env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "streamlit run app.py"
-    pythonVersion: 3.10.12
+  - type: web               # Tipo de servicio (una app web)
+    name: vehicles-app      # Nombre que tendrá tu servicio en Render
+    env: python             # Lenguaje de entorno (Python en este caso)
+    buildCommand: "pip install -r requirements.txt"  # Cómo instalar dependencias
+    startCommand: "streamlit run app.py"             # Cómo iniciar la app
+    pythonVersion: 3.10.12  # Versión específica de Python
