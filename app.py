@@ -4,7 +4,7 @@ import plotly_express
 import numpy as np
 
 # Se carga el dataset
-power_consuption = pd.read_csv('datasets/power_consuption.csv')
+power_consuption = pd.read_csv('datasets/power_consumption.csv')
 
 # Se muestra el título de la app
 st.title('Consumo eléctrico')
@@ -19,3 +19,5 @@ st.set_page_config(page_title="App Eléctricidad", layout="wide")
 
 st.title("Análisis de consumo electrico")
 st.write("Bienvenido a la aplicación de Streamlit desplegada con Render.")
+
+

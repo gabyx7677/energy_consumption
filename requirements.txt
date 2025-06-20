@@ -1,4 +1,14 @@
- pandas
- plotly
- streamlit
- numpy
+pandas
+plotly
+streamlit
+numpy
+matplotlib
+seaborn
+opencv-python
+Pillow
+tensorflow
+keras
+
+
+
+
