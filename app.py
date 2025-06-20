@@ -4,7 +4,7 @@ import plotly.express as px
 import numpy as np
 
 # Se carga el dataset
-power_consumption = pd.read_csv('datasets/power_consumption.csv')
+power_consumption = pd.read_csv('datasets/energy_consumption.csv')
 
 # Se muestra el título de la app
 st.title('Consumo eléctrico')
