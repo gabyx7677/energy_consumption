@@ -4,6 +4,10 @@ import plotly.express as px
 import numpy as np
 
 
+
+st.set_page_config(page_title="Análisis Energético Tetuán", layout="wide")
+
+
 # Sección de título general de la app
 st.title("Análisis del Consumo Energético en Tetuán")
 
