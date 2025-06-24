@@ -131,14 +131,14 @@ if st.button("Mostrar gráfico de variabilidad diaria del consumo"):
 
 
 # --- Gráfico: curva de demanda diaria del Consumo ---
-st.subheader("Curva de demanda diaria del consumo de Zona") # REVISAAAR
+st.subheader("Curva de demanda diaria del consumo") 
 
 st.write("""
 A través de este gráfico se muestra la desviación estándar diaria del consumo energético por zona. 
 Este indicador permite evaluar qué tan estable o variable ha sido el consumo día a día, detectando posibles fluctuaciones.
 """)
 
-if st.button("Mostrar gráfico de la curva de demanda diaria del consumo"):
+if st.button("Mostrar gráfico de la curva de demanda"):
     
     # Se resamplea con base a la hora y se saca el promedio de consumo por hora
     e_c_hourly = e_c['total_pwc'].resample('h').mean()
@@ -154,14 +154,14 @@ if st.button("Mostrar gráfico de la curva de demanda diaria del consumo"):
 
 
 # --- Gráfico: curva de demanda diaria día laboral - fin de semana ---
-st.subheader("Curva de demanda diaria del consumo de Zona") # REVISAAAR
+st.subheader("Curva de demanda diaria días laborales - fines de semana") # REVISAAAR
 
 st.write("""
 A través de este gráfico se muestra la desviación estándar diaria del consumo energético por zona. 
 Este indicador permite evaluar qué tan estable o variable ha sido el consumo día a día, detectando posibles fluctuaciones.
 """)
 
-if st.button("Mostrar gráfico de la curva de demanda diaria del consumo"):
+if st.button("Mostrar gráfico de la curva de demanda weekday - weekend day"):
 
     
     e_c['weekday'] = e_c.index.weekday # Se crea columna con el día de la semana (0 = lunes, 6 = domingo)
