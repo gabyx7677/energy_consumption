@@ -141,8 +141,7 @@ Este indicador permite evaluar qué tan estable o variable ha sido el consumo d�
 if st.button("Mostrar gráfico de la curva de demanda"):
     
     # Se resamplea con base a la hora y se saca el promedio de consumo por hora
-    e_c_hourly = e_c['total_pwc'].resample('h').mean()
-    e_c_hourly = e_c_hourly.to_frame() # Se convierte a dataframe
+    e_c_hourly = e_c['total_pwc'].resample('h').mean().to_frame() # A df porque es una serie
     e_c_hourly['hour'] = e_c_hourly.index.hour # Se reindexa 
     curve = e_c_hourly.groupby('hour')['total_pwc'].mean()
     fig_demand_curve = px.line(
@@ -166,7 +165,7 @@ if st.button("Mostrar gráfico de la curva de demanda weekday - weekend day"):
     
     e_c['weekday'] = e_c.index.weekday # Se crea columna con el día de la semana (0 = lunes, 6 = domingo)
     e_c['tipo_dia'] = e_c['weekday'].apply(lambda x: 'Fin de Semana' if x >= 5 else 'Laboral') # Se define si es fin de semana (sábado o domingo)
-    e_c_hourly = e_c['total_pwc'].resample('h').mean() # Se crea df basandose en el resampleo horario del consumo total
+    e_c_hourly = e_c['total_pwc'].resample('h').mean().to_frame() # Se crea df basandose en el resampleo horario del consumo total (de serie a df)
     e_c_hourly['tipo_dia'] = e_c['tipo_dia'].resample('h').first() # Se resamplea por hora para suavizar y se conserva tipo de día
     e_c_hourly['hour'] = e_c_hourly.index.hour
     week_or_weekend_day = e_c_hourly.groupby(['tipo_dia', 'hour'])['total_pwc'].mean().unstack(0) # Se agrupan los promedios por hora y tipo de día
