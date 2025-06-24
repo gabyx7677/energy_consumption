@@ -49,6 +49,7 @@ def load_data():
     })
     e_c['datetime'] = pd.to_datetime(e_c['datetime'])
     e_c.set_index('datetime', inplace=True)
+    e_c['total_pwc'] = e_c['zone_1_pwc'] + e_c['zone_2_pwc'] + e_c['zone_3_pwc']  # Se crea una nueva columna con la suma de la demanda por zona
     return e_c
 
 
@@ -129,4 +130,49 @@ if st.button("Mostrar gráfico de variabilidad diaria del consumo"):
     st.plotly_chart(fig_std, use_container_width=True)
 
 
+# --- Gráfico: curva de demanda diaria del Consumo ---
+st.subheader("Curva de demanda diaria del consumo de Zona") # REVISAAAR
 
+st.write("""
+A través de este gráfico se muestra la desviación estándar diaria del consumo energético por zona. 
+Este indicador permite evaluar qué tan estable o variable ha sido el consumo día a día, detectando posibles fluctuaciones.
+""")
+
+if st.button("Mostrar gráfico de la curva de demanda diaria del consumo"):
+    
+    # Se resamplea con base a la hora y se saca el promedio de consumo por hora
+    e_c_hourly = e_c['total_pwc'].resample('h').mean()
+    e_c_hourly = e_c_hourly.to_frame() # Se convierte a dataframe
+    e_c_hourly['hour'] = e_c_hourly.index.hour # Se reindexa 
+    curve = e_c_hourly.groupby('hour')['total_pwc'].mean()
+    fig_std = px.line(
+        curve,
+        labels={'value': 'Desviación Estándar [W]', 'datetime': 'Fecha', 'variable': 'Zona'},
+        title="Desviación Estándar Diaria del Consumo por Zona"
+    )
+    st.plotly_chart(fig_std, use_container_width=True)
+
+
+# --- Gráfico: curva de demanda diaria día laboral - fin de semana ---
+st.subheader("Curva de demanda diaria del consumo de Zona") # REVISAAAR
+
+st.write("""
+A través de este gráfico se muestra la desviación estándar diaria del consumo energético por zona. 
+Este indicador permite evaluar qué tan estable o variable ha sido el consumo día a día, detectando posibles fluctuaciones.
+""")
+
+if st.button("Mostrar gráfico de la curva de demanda diaria del consumo"):
+
+    
+    e_c['weekday'] = e_c.index.weekday # Se crea columna con el día de la semana (0 = lunes, 6 = domingo)
+    e_c['tipo_dia'] = e_c['weekday'].apply(lambda x: 'Fin de Semana' if x >= 5 else 'Laboral') # Se define si es fin de semana (sábado o domingo)
+    e_c['total_pwc'] = e_c['zone_1_pwc'] + e_c['zone_2_pwc'] + e_c['zone_3_pwc'] # Se asegura tener la suma total de energía por fila
+    e_c_hourly['tipo_dia'] = e_c['tipo_dia'].resample('h').first() # Se resamplea por hora para suavizar y se conserva tipo de día
+    e_c_hourly['hour'] = e_c_hourly.index.hour
+    curvas_tipo_dia = e_c_hourly.groupby(['tipo_dia', 'hour'])['total_pwc'].mean().unstack(0) # Se agrupan los promedios por hora y tipo de día
+    fig_std = px.line(
+        curvas_tipo_dia,
+        labels={'value': 'Desviación Estándar [W]', 'datetime': 'Fecha', 'variable': 'Zona'},
+        title="Desviación Estándar Diaria del Consumo por Zona"
+    )
+    st.plotly_chart(fig_std, use_container_width=True)
