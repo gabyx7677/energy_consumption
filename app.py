@@ -226,7 +226,7 @@ if st.checkbox("Mostrar histogramas de consumo por zona"):
     st.plotly_chart(fig, use_container_width=True)
 
 # Conclusipon
-st.header("Conclusión del Análisis")
+st.header("4. Conclusión del Análisis")
 
 st.write("""
 El análisis exploratorio del consumo energético en la ciudad de San Aurelio revela patrones claros de demanda diaria, mensual 

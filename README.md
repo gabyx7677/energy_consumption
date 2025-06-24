@@ -50,3 +50,4 @@ Todas las gráficas se generan automáticamente desde el backend de datos prepro
 
 Puedes ver la app en línea en Render:  
 📍 https://energy-consumption-vce7.onrender.com
+  
