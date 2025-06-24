@@ -167,6 +167,7 @@ if st.button("Mostrar gráfico de la curva de demanda weekday - weekend day"):
     e_c['weekday'] = e_c.index.weekday # Se crea columna con el día de la semana (0 = lunes, 6 = domingo)
     e_c['tipo_dia'] = e_c['weekday'].apply(lambda x: 'Fin de Semana' if x >= 5 else 'Laboral') # Se define si es fin de semana (sábado o domingo)
     e_c['total_pwc'] = e_c['zone_1_pwc'] + e_c['zone_2_pwc'] + e_c['zone_3_pwc'] # Se asegura tener la suma total de energía por fila
+    e_c_hourly = e_c['total_pwc'].resample('h').mean() # Se crea df basandose en el resampleo horario del consumo total
     e_c_hourly['tipo_dia'] = e_c['tipo_dia'].resample('h').first() # Se resamplea por hora para suavizar y se conserva tipo de día
     e_c_hourly['hour'] = e_c_hourly.index.hour
     week_or_weekend_day = e_c_hourly.groupby(['tipo_dia', 'hour'])['total_pwc'].mean().unstack(0) # Se agrupan los promedios por hora y tipo de día
