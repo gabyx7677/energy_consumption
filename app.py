@@ -5,11 +5,11 @@ import numpy as np
 
 
 
-st.set_page_config(page_title="Análisis Energético Tetuán", layout="wide")
+st.set_page_config(page_title="Análisis Energético", layout="wide")
 
 
 # Sección de título general de la app
-st.title("Análisis del Consumo Energético en Tetuán")
+st.title("Análisis del Consumo Energético en la ciudad de San Aurelio en Colombia")
 
 
 # Título de sección
@@ -18,8 +18,8 @@ st.header("1. Carga y exploración inicial del conjunto de datos")
 
 # Descripción del objetivo general del análisis
 st.write("""
-Este proyecto analiza cómo varía el consumo energético en tres zonas de la ciudad de Tetuán, Marruecos, 
-a lo largo del año 2017. Se consideran variables exógenas como temperatura, humedad, velocidad del viento 
+Este proyecto analiza cómo varía el consumo energético en tres zonas de la ciudad de San Aurelio, en el departamento
+de Arauca en Colombia a lo largo del año 2017. Se consideran variables exógenas como temperatura, humedad, velocidad del viento 
 y flujos difusos de energía solar para entender su impacto sobre la demanda eléctrica. 
 A partir de estos datos, se pretende construir modelos predictivos robustos que permitan anticipar momentos 
 de alta demanda y facilitar la gestión energética.
@@ -175,3 +175,24 @@ if st.button("Mostrar gráfico de la curva de demanda weekday - weekend day"):
         title="Desviación Estándar Diaria del Consumo por Zona"
     )
     st.plotly_chart(fig_type_date_demand, use_container_width=True)
+
+
+# Título y descripción para los histogramas
+st.header("3. Distribución del Consumo por Zona")
+
+st.write("""
+En esta sección se analiza la distribución de consumo energético para cada zona mediante histogramas interactivos. 
+Los histogramas permiten visualizar la frecuencia de los distintos niveles de consumo, y ayudan a identificar patrones, 
+asimetrías o posibles sesgos en los datos de cada zona.
+""")
+
+
+# Botón para mostrar histogramas
+if st.button("Mostrar histogramas por zona"):
+    # Histograma interactivo para cada zona
+    for zona in ['zone_1_pwc', 'zone_2_pwc', 'zone_3_pwc']:
+        fig = px.histogram(e_c, x=zona, nbins=30, marginal="rug", opacity=0.7,
+                           title=f'Distribución de consumo en {zona.upper()}',
+                           labels={zona: 'Consumo de energía [W]'})
+        fig.update_layout(bargap=0.1)
+        st.plotly_chart(fig)
