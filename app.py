@@ -67,7 +67,62 @@ if st.button("Mostrar resumen estadístico"):
     st.dataframe(e_c.describe())
 
 
+# Sección de análisis temporal del consumo energético
+st.header("2. Análisis Temporal del Consumo Energético")
 
+
+# --- Gráfico: Consumo Diario Promedio por Zona ---
+st.subheader("Consumo Diario Promedio por Zona")
+
+st.write("""
+Este gráfico muestra la evolución diaria del consumo energético promedio para cada una de las tres zonas analizadas. 
+Al observar los patrones diarios se pueden detectar tendencias, estacionalidades o anomalías que ocurren a lo largo del año.
+""")
+
+if st.button("Mostrar gráfico de consumo diario promedio"):
+    daily_avg = e_c.resample('D').mean()[['zone_1_pwc', 'zone_2_pwc', 'zone_3_pwc']]
+    fig_daily = px.line(
+        daily_avg,
+        labels={'value': 'Consumo [W]', 'datetime': 'Fecha', 'variable': 'Zona'},
+        title="Consumo Diario Promedio por Zona"
+    )
+    st.plotly_chart(fig_daily, use_container_width=True)
+
+
+# --- Gráfico: Consumo Mensual Promedio por Zona ---
+st.subheader("Consumo Mensual Promedio por Zona")
+
+st.write("""
+Este gráfico presenta el promedio mensual de consumo eléctrico por zona. Su objetivo es ayudar a identificar 
+periodos del año con mayor o menor demanda, facilitando la planificación energética estacional.
+""")
+
+if st.button("Mostrar gráfico de consumo mensual promedio"):
+    monthly_avg = e_c.resample('M').mean()[['zone_1_pwc', 'zone_2_pwc', 'zone_3_pwc']]
+    fig_monthly = px.line(
+        monthly_avg,
+        labels={'value': 'Consumo [W]', 'datetime': 'Mes', 'variable': 'Zona'},
+        title="Consumo Mensual Promedio por Zona"
+    )
+    st.plotly_chart(fig_monthly, use_container_width=True)
+
+
+# --- Gráfico: Desviación Estándar Diaria del Consumo ---
+st.subheader("Variabilidad Diaria del Consumo por Zona")
+
+st.write("""
+A través de este gráfico se muestra la desviación estándar diaria del consumo energético por zona. 
+Este indicador permite evaluar qué tan estable o variable ha sido el consumo día a día, detectando posibles fluctuaciones.
+""")
+
+if st.button("Mostrar gráfico de variabilidad diaria del consumo"):
+    daily_std = e_c.resample('D').std()[['zone_1_pwc', 'zone_2_pwc', 'zone_3_pwc']]
+    fig_std = px.line(
+        daily_std,
+        labels={'value': 'Desviación Estándar [W]', 'datetime': 'Fecha', 'variable': 'Zona'},
+        title="Desviación Estándar Diaria del Consumo por Zona"
+    )
+    st.plotly_chart(fig_std, use_container_width=True)
 
 
 
