@@ -154,7 +154,7 @@ if st.button("Mostrar gráfico de la curva de demanda"):
 
 
 # --- Gráfico: curva de demanda diaria día laboral - fin de semana ---
-st.subheader("Curva de demanda diaria días laborales - fines de semana") # REVISAAAR
+st.subheader("Curva de demanda diaria días laborales - fines de semana")
 
 st.write("""
 A través de este gráfico se muestra la desviación estándar diaria del consumo energético por zona. 
@@ -169,7 +169,7 @@ if st.button("Mostrar gráfico de la curva de demanda weekday - weekend day"):
     e_c['total_pwc'] = e_c['zone_1_pwc'] + e_c['zone_2_pwc'] + e_c['zone_3_pwc'] # Se asegura tener la suma total de energía por fila
     e_c_hourly = e_c['total_pwc'].resample('h').mean() # Se crea df basandose en el resampleo horario del consumo total
     e_c_hourly['tipo_dia'] = e_c['tipo_dia'].resample('h').first() # Se resamplea por hora para suavizar y se conserva tipo de día
-    e_c_hourly['hour'] = e_c_hourly.index.hour
+    e_c_hourly['hour'] = e_c_hourly.index.Hour
     week_or_weekend_day = e_c_hourly.groupby(['tipo_dia', 'hour'])['total_pwc'].mean().unstack(0) # Se agrupan los promedios por hora y tipo de día
     fig_type_date_demand = px.line(
         week_or_weekend_day,
