@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import numpy as np
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 
 
 
@@ -187,12 +189,41 @@ asimetrías o posibles sesgos en los datos de cada zona.
 """)
 
 
-# Botón para mostrar histogramas
-if st.button("Mostrar histogramas por zona"):
-    # Histograma interactivo para cada zona
-    for zona in ['zone_1_pwc', 'zone_2_pwc', 'zone_3_pwc']:
-        fig = px.histogram(e_c, x=zona, nbins=30, marginal="rug", opacity=0.7,
-                           title=f'Distribución de consumo en {zona.upper()}',
-                           labels={zona: 'Consumo de energía [W]'})
-        fig.update_layout(bargap=0.1)
-        st.plotly_chart(fig)
+# Título y descripción de la sección
+st.header("3. Distribución conjunta del consumo energético por zona")
+
+st.write("""
+Se visualiza la distribución del consumo energético para cada una de las tres zonas analizadas.
+Los histogramas permiten observar la forma de los datos, identificar sesgos y posibles comportamientos bimodales.
+Esta vista conjunta facilita la comparación directa entre zonas.
+""")
+
+
+# Botón para mostrar los tres histogramas como subplots
+if st.button("Mostrar histograma conjunto por zona"):
+    # Crear figura con subplots en una fila
+    fig = make_subplots(rows=1, cols=3, subplot_titles=["Zona 1", "Zona 2", "Zona 3"])
+
+    zonas = ['zone_1_pwc', 'zone_2_pwc', 'zone_3_pwc']
+
+    for i, zona in enumerate(zonas, start=1):
+        fig.add_trace(
+            go.Histogram(
+                x=e_c[zona],
+                nbinsx=50,
+                name=zona.upper(),
+                marker_color='skyblue',
+                opacity=0.8
+            ),
+            row=1, col=i
+        )
+
+    # Configuraciones generales
+    fig.update_layout(
+        title_text="Distribución del Consumo Energético por Zona",
+        showlegend=False,
+        height=400,
+        bargap=0.05,
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
