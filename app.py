@@ -23,8 +23,8 @@ st.write("""
 Este proyecto analiza cómo varía el consumo energético en tres zonas de la ciudad de San Aurelio, en el departamento
 de Arauca en Colombia a lo largo del año 2017. Se consideran variables exógenas como temperatura, humedad, velocidad del viento 
 y flujos difusos de energía solar para entender su impacto sobre la demanda eléctrica. 
-A partir de estos datos, se pretende construir modelos predictivos robustos que permitan anticipar momentos 
-de alta demanda y facilitar la gestión energética.
+A partir de estos datos,por ahora se pretende hacer un análisis exploratorio de los datos para más a futuro construir modelos predictivos
+robustos que permitan anticipar momentos de alta demanda y facilitar la gestión energética al estudiar las variables que afectan el consumo energético.
 """)
 
 
@@ -136,8 +136,9 @@ if st.button("Mostrar gráfico de variabilidad diaria del consumo"):
 st.subheader("Curva de demanda diaria del consumo") 
 
 st.write("""
-A través de este gráfico se muestra la desviación estándar diaria del consumo energético por zona. 
-Este indicador permite evaluar qué tan estable o variable ha sido el consumo día a día, detectando posibles fluctuaciones.
+La curva de demanda energética diaria revela patrones de comportamiento asociados al uso de la electricidad 
+en diferentes zonas. Esta representación es clave para anticipar picos de consumo, optimizar la distribución 
+de energía y diseñar estrategias de gestión basadas en la demanda real observada a lo largo del tiempo.
 """)
 
 if st.button("Mostrar gráfico de la curva de demanda"):
@@ -158,8 +159,11 @@ if st.button("Mostrar gráfico de la curva de demanda"):
 st.subheader("Curva de demanda diaria días laborales - fines de semana")
 
 st.write("""
-A través de este gráfico se muestra la desviación estándar diaria del consumo energético por zona. 
-Este indicador permite evaluar qué tan estable o variable ha sido el consumo día a día, detectando posibles fluctuaciones.
+Al segmentar el consumo energético entre días laborales y fines de semana, se evidencian patrones distintos 
+de demanda. Mientras que los días hábiles presentan una curva más estructurada con picos previsibles, 
+los fines de semana muestran una reducción general en el consumo, reflejando cambios en los hábitos 
+de actividad de la población. Esta diferenciación es clave para construir modelos predictivos más precisos 
+y para una planificación energética que se adapte a las dinámicas sociales reales.
 """)
 
 if st.button("Mostrar gráfico de la curva de demanda weekday - weekend day"):
@@ -189,36 +193,33 @@ asimetrías o posibles sesgos en los datos de cada zona.
 """)
 
 
-# Título y descripción de la sección
+# Título y descripción
 st.header("3. Distribución conjunta del consumo energético por zona")
 
 st.write("""
-Se visualiza la distribución del consumo energético para cada una de las tres zonas analizadas.
-Los histogramas permiten observar la forma de los datos, identificar sesgos y posibles comportamientos bimodales.
-Esta vista conjunta facilita la comparación directa entre zonas.
+Marca la casilla si deseas visualizar los histogramas del consumo energético por zona. 
+Esta vista facilita identificar la forma de la distribución y posibles diferencias entre las tres áreas analizadas.
 """)
 
-
-# Botón para mostrar los tres histogramas como subplots
-if st.button("Mostrar histograma conjunto por zona"):
-    # Crear figura con subplots en una fila
+# Casilla de verificación
+if st.checkbox("Mostrar histogramas de consumo por zona"):
+    # Crear figura con subplots
     fig = make_subplots(rows=1, cols=3, subplot_titles=["Zona 1", "Zona 2", "Zona 3"])
-
     zonas = ['zone_1_pwc', 'zone_2_pwc', 'zone_3_pwc']
 
     for i, zona in enumerate(zonas, start=1):
         fig.add_trace(
             go.Histogram(
                 x=e_c[zona],
-                nbinsx=50,
+                nbinsx=30,
                 name=zona.upper(),
                 marker_color='skyblue',
-                opacity=0.8
+                opacity=0.75
             ),
             row=1, col=i
         )
 
-    # Configuraciones generales
+    # Layout general
     fig.update_layout(
         title_text="Distribución del Consumo Energético por Zona",
         showlegend=False,
@@ -227,3 +228,50 @@ if st.button("Mostrar histograma conjunto por zona"):
     )
 
     st.plotly_chart(fig, use_container_width=True)
+
+# Conclusipon
+st.header("Conclusión del Análisis")
+
+st.write("""
+El análisis exploratorio del consumo energético en la ciudad de San Aurelio revela patrones claros de demanda diaria, mensual 
+y semanal, destacando una disminución consistente los fines de semana y una mayor variabilidad en ciertos períodos del año. 
+La segmentación por zonas permite observar comportamientos específicos, lo que es esencial para la toma de decisiones focalizadas 
+en eficiencia energética. Además, la estabilidad en algunos tramos y la alta variabilidad en otros indican la necesidad de 
+modelos predictivos capaces de adaptarse a estas dinámicas. Estos hallazgos sientan las bases para construir soluciones de 
+predicción robustas que optimicen la gestión del sistema eléctrico local, anticipando picos de consumo y mejorando la sostenibilidad energética.
+""")
+
+# Se muestra la conclusión general del análisis temporal del consumo energético
+st.markdown("""
+## 🔍 **Conclusiones del Análisis Temporal del Consumo Energético**
+
+### 1. **Consumo Diario Promedio por Zona**
+- La **Zona 1** mantiene el nivel de consumo diario más alto, con una tendencia creciente hasta mediados de año y estabilización posterior.
+- La **Zona 2** presenta un comportamiento estable con ligeros incrementos a mitad de año.
+- La **Zona 3** evidencia un comportamiento atípico, con un aumento marcado entre junio y agosto, seguido de una caída abrupta. Esto podría indicar una anomalía operativa o cambio estructural en dicha zona.
+
+### 2. **Consumo Mensual Promedio por Zona**
+- Las tres zonas muestran crecimiento hasta agosto. La **Zona 3** desciende bruscamente luego, mientras las otras dos zonas mantienen una disminución moderada.
+- Este patrón sugiere estacionalidad o un evento específico que alteró significativamente el consumo.
+
+### 3. **Variabilidad Diaria del Consumo por Zona**
+- La **Zona 1** presenta alta variabilidad pero controlada, reflejando una demanda robusta y predecible.
+- La **Zona 2** mantiene variabilidad intermedia con picos aislados.
+- La **Zona 3** muestra alta volatilidad durante su periodo de mayor consumo, lo que refuerza la hipótesis de un cambio relevante en su uso energético.
+
+### 4. **Curva de Demanda Diaria (por hora)**
+- El consumo sigue un patrón típico diario:
+    - Mínimos entre las 2:00 y 6:00 AM.
+    - Incremento sostenido desde las 7:00 AM.
+    - **Pico máximo entre las 7:00 PM y 9:00 PM**, coincidiendo con el periodo de mayor actividad residencial.
+- Este perfil permite identificar horas pico y diseñar estrategias de respuesta a la demanda.
+
+---
+
+### 💡 **Recomendaciones Estratégicas**
+- **Monitorear la Zona 3** por posibles eventos estructurales que afectan su perfil energético.
+- Priorizar la **Zona 1** en decisiones de inversión y mantenimiento, dada su alta y estable demanda.
+- Usar la curva horaria para diseñar **tarifas dinámicas** y estrategias de eficiencia energética.
+- Considerar la **estacionalidad energética** para anticipar incrementos de demanda y planificar recursos.
+
+""")
