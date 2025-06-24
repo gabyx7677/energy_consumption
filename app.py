@@ -192,10 +192,6 @@ Los histogramas permiten visualizar la frecuencia de los distintos niveles de co
 asimetrías o posibles sesgos en los datos de cada zona.
 """)
 
-
-# Título y descripción
-st.header("3. Distribución conjunta del consumo energético por zona")
-
 st.write("""
 Marca la casilla si deseas visualizar los histogramas del consumo energético por zona. 
 Esta vista facilita identificar la forma de la distribución y posibles diferencias entre las tres áreas analizadas.
@@ -243,7 +239,7 @@ predicción robustas que optimicen la gestión del sistema eléctrico local, ant
 
 # Se muestra la conclusión general del análisis temporal del consumo energético
 st.markdown("""
-## 🔍 **Conclusiones del Análisis Temporal del Consumo Energético**
+## **Conclusiones del Análisis Temporal del Consumo Energético**
 
 ### 1. **Consumo Diario Promedio por Zona**
 - La **Zona 1** mantiene el nivel de consumo diario más alto, con una tendencia creciente hasta mediados de año y estabilización posterior.
@@ -268,7 +264,7 @@ st.markdown("""
 
 ---
 
-### 💡 **Recomendaciones Estratégicas**
+###  **Recomendaciones Estratégicas**
 - **Monitorear la Zona 3** por posibles eventos estructurales que afectan su perfil energético.
 - Priorizar la **Zona 1** en decisiones de inversión y mantenimiento, dada su alta y estable demanda.
 - Usar la curva horaria para diseñar **tarifas dinámicas** y estrategias de eficiencia energética.
